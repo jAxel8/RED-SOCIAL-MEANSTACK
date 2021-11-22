@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons  slot="start">
+      <ion-back-button  class="ms-2 text-light" defaultHref='/home'></ion-back-button>
+    </ion-buttons>
+    <ion-text class="ms-3 text-light fw-bold">Subir foto</ion-text>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+    <div class="container">
+      <form #fotoForm="ngForm" (ngSubmit)="subir_foto(fotoForm)">
+        <div class="ion-text-center">
+          <img class="mt-2 mb-2 img-fluid" style="cursor: pointer;" (click)="uploadImage.click()" [src]="imagePreview">
+        </div>
+        <ion-item lines="full">
+          <ion-label class="text-light " position="floating">Titulo</ion-label>
+          <ion-input class="text-light " [(ngModel)]="nombre" name='nombre' type="text" required></ion-input>
+        </ion-item>
+    
+        <ion-item lines="full">
+          <ion-label class="text-light " position="floating">Descripción</ion-label>
+          <ion-input class="text-light" [(ngModel)]="descripcion" name='descripcion' type="text" required></ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <ion-button type="submit" color="danger" expand="block">Subir foto</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </div>
+  
+</ion-content>
+
+
+<input type="file"  accept="image/*"  #uploadImage style="display: none;" (change)="subirImagen($event.target.files[0])" />

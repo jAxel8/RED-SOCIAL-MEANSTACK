@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons  slot="start">
+      <ion-back-button  class="ms-2 text-light" defaultHref='/home' [icon]="buttonIcon"></ion-back-button>
+    </ion-buttons>
+    <ion-text class="ms-3 text-light fw-bold">Comentarios</ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]='true' >
+
+
+<ng-container >
+  <ion-list lines='none'>
+    <ion-item-sliding *ngFor="let item of comentarios">
+      <ion-item >
+        <ion-avatar  item-left>
+          <img [src]="item.user_id.profileImg"/>
+        </ion-avatar>
+        <ion-label  class="text-light ms-2"> <ion-text class="fw-bold">{{item.user_id.username}}</ion-text> {{item.comentario}}
+          <br><small style="color: #999999;"> {{item.createdAt|dateAgo}} </small>
+        </ion-label>
+        
+
+      </ion-item>
+      <ion-item-options *ngIf="identity._id == item.user_id._id || identity._id == foto.user._id " side="end">
+        <ion-item-option (click)="eliminar_comentario(item._id)" color='danger'>Eliminar</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+    
+</ng-container>
+
+
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar style="--background: #242526 !important;">
+
+    <div class="ms-2 mt-3 d-flex justify-content-center">
+      <ion-avatar style="max-height: 35px; max-width: 35px;">
+        <img  src="{{identity.profileImg}}">
+      </ion-avatar>
+      <ion-label class="ms-4 text-light fw-bold"> <ion-input required [(ngModel)]="comentario.comentario" name="comentario" placeholder='Escribe un comentario...'></ion-input></ion-label>
+      <ion-icon class="ms-4 mt-2 text-light"  (click)="agregar_comentario()" name="send-outline"></ion-icon>
+    </div>
+    
+  </ion-toolbar>
+</ion-footer>

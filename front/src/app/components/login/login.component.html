@@ -1,0 +1,19 @@
+
+<main class="form-signin">
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" class="pt-5">
+     
+      <h1 class="h3 mb-3 fw-normal text-center">Bienvenido</h1>
+  
+      <div class="form-floating">
+        <input required type="text" class="form-control" id="floatingInput" name="username" [(ngModel)]="username" placeholder="name@example.com">
+        <label for="floatingInput">Nombre de usuario:</label>
+      </div>
+      <div class="form-floating">
+        <input required type="password" class="form-control" id="floatingPassword" name="password" [(ngModel)]="password" placeholder="Contraseña">
+        <label for="floatingPassword">Contraseña:</label>
+      </div>
+      <button class="w-100 btn btn-lg btn-dark">Iniciar sesión.</button>
+      
+    </form>
+</main>
+  

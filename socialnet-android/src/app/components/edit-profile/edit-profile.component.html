@@ -1,0 +1,52 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-buttons  slot="start" >
+      <ion-back-button class="text-light" ></ion-back-button>
+    </ion-buttons>
+    <ion-title class="text-light">Actualizar datos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+
+  <form  #updateForm="ngForm" (ngSubmit)="update(updateForm)">
+
+    <div class="ion-text-center">
+      <img width="150px" height="200px" class="img-fluid rounded-circle" style="cursor: pointer;" (click)="uploadImage.click()" [src]="imagePreview">
+    </div>
+
+  <ion-item class="text-light" lines="full">
+    <ion-label position="floating">Nombre de usuario</ion-label>
+    <ion-input [(ngModel)]="user.username" name='username' type="text" required></ion-input>
+  </ion-item>
+
+  <ion-item lines="full">
+    <ion-label class="text-light" position="floating">Nombres</ion-label>
+    <ion-input  class="text-light"[(ngModel)]="user.name" name='name' type="text" required></ion-input>
+  </ion-item>
+
+  <ion-item lines="full">
+    <ion-label class="text-light" position="floating">Apellidos</ion-label>
+    <ion-input class="text-light" [(ngModel)]="user.surname" name='surname' type="text" required></ion-input>
+  </ion-item>
+
+  <ion-item lines="full">
+    <ion-label class="text-light" position="floating">Email</ion-label>
+    <ion-input class="text-light" [(ngModel)]="user.email" name='email' type="text" required></ion-input>
+  </ion-item>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-button type="submit" color="danger" expand="block">Actualizar</ion-button>
+    </ion-col>
+  </ion-row>
+</form>
+
+</ion-content>
+
+
+<input type="file" #uploadImage style="display: none;" (change)="subirImagen($event.target.files[0])" />
+

@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar translucent>
+    <ion-title class="text-light">
+        <h3>Inicio</h3>
+        
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+   <ng-container *ngIf="fotos.length >= 1"  >
+     <div *ngFor="let item of fotos"> 
+
+      <ion-card style="background-color: #242526;" >
+
+          <div class="ms-2 mt-3 mb-2  d-flex justify-content-start">
+            <ion-avatar [routerLink]="['/tabs/home/perfil',item.user._id]"   style="max-height: 35px; max-width: 35px;">
+              <img  src="{{item.user.profileImg}}">
+            </ion-avatar>
+            <ion-label [routerLink]="['/tabs/home/perfil',item.user._id]" class="mt-2 mb-2 text-light fw-bold"> &nbsp; {{item.user.username}}</ion-label>
+          </div>
+
+        <img width="100%" src="{{item.imagen}}" alt="">
+  
+        <ion-row class="cardfooter">
+          <ion-col>
+                <div class="ms-1 mb-1 mt-1 d-flex justify-content-start">
+                  <ion-icon (click)="like_imagen(item._id)" *ngIf="likes.indexOf(item._id) >= 0" color="danger" class="text-light" name="heart"></ion-icon>    
+                  <ion-icon (click)="like_imagen(item._id)" *ngIf="likes.indexOf(item._id)< 0" class="text-light" name="heart-outline"></ion-icon>               
+                  <ion-icon class="text-light ms-3" [routerLink]="['/tabs/home/comentarios',item._id]" name="chatbubble-outline"></ion-icon>
+                  
+
+                </div>
+                <div *ngIf="item.likes != 0" class="text-light fw-bold ms-2">
+                  {{item.likes}} Me gusta
+                </div>
+                <div class="ms-2">
+                 <a class="text-light fw-bold" [routerLink]="['/perfil',item.user._id]" style="text-decoration: none;">{{item.user.username}}</a> <ion-text class="text-light ms-1">{{item.descripcion}}</ion-text>
+                </div>
+                <div *ngIf="item.comentarios != 0" class="ms-2">
+                  
+                  <a [routerLink]="['/tabs/home/comentarios',item._id]" style="text-decoration: none;color: #999999;" >Ver los {{item.comentarios}} comentarios</a>
+                </div>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+     </div>
+    
+   </ng-container>
+    
+   <ng-container *ngIf="fotos.length == 0 && !load_data ">
+    <h1 class="mt-5 text-center text-light">NO HAY FOTOS SUBIDAS</h1>
+  </ng-container>
+
+
+
+</ion-content>
+
+
+

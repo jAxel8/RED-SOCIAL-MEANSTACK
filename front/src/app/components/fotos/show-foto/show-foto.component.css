@@ -1,0 +1,29 @@
+.img-thumbnail-2{
+    width: 35px;
+    max-height: 35px;
+}
+
+/*
+
+.scroll::-webkit-scrollbar {
+    display: none;
+}
+
+
+.scroll {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+
+*/
+
+
+
+
+.click-after:hover{
+  color: red;
+  transform: scale(1.5);
+  transition: all 0.3s linear;
+}
+

@@ -1,0 +1,8 @@
+{
+  "name": "socialnet",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

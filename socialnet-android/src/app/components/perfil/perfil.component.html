@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons  slot="start">
+      <ion-back-button  class="ms-2 text-light" defaultHref='/home' [icon]="buttonIcon"></ion-back-button>
+    </ion-buttons>
+    <ion-text class="ms-3 text-light fw-bold">{{user.username}}</ion-text>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+    <ion-avatar class="image-center mt-2" style="min-height: 150px; min-width: 150px;">
+      <img src="{{user.profileImg}}">
+    </ion-avatar>
+
+    <div class="ion-text-center">
+      <h4 class="name mt-3 text-light "> {{user.name + ' ' + user.surname}}   </h4>
+      <p class="nick text-light"> {{'' + user.username}} </p>
+    </div>
+
+    <div class="ion-text-center mb-3" *ngIf="identity._id != userid">
+
+      <ion-button color="dark" *ngIf="followyou" >Te sigue</ion-button> 
+      &nbsp;
+      <ion-button color="tertiary" *ngIf="!following" (click)="seguir_usuario()" >SEGUIR</ion-button>
+      <ion-button  color="danger" *ngIf="following" (click)="seguir_usuario()" >DEJAR DE SEGUIR</ion-button>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center">
+      <h2  class="fs-6 text-center text-light ">{{fotos.length}} Publicaciones     </h2>
+      <hr>
+      <h2  class="fs-6 text-center ps-2 text-light "  data-bs-toggle="modal" data-bs-target='#seguidoresModal'  style="cursor: pointer;"> &nbsp; {{seguidores.length}} Seguidores </h2 >
+
+      <h2 class="fs-6  text-center ps-2 text-light " data-bs-toggle="modal" data-bs-target='#siguiendoModal'  style="cursor: pointer;">&nbsp;{{siguiendo.length}} Seguidos</h2>          
+    </div>
+
+     
+  <ng-container *ngIf="fotos.length != 0" >
+
+    <div *ngFor="let item of fotos"> 
+  
+      <ion-card style="background-color: #242526;" >
+  
+          <div class="ms-2 mt-3 mb-2 d-flex justify-content-start">
+            <ion-avatar [routerLink]="['/perfil',item.user._id]" style="max-height: 35px; max-width: 35px;">
+              <img  src="{{item.user.profileImg}}">
+            </ion-avatar>
+            <ion-label class="mt-2 mb-2 text-light fw-bold"> &nbsp; {{item.user.username}}</ion-label>
+          </div>
+  
+        <img width="100%" src="{{item.imagen}}" alt="">
+  
+        <ion-row class="cardfooter">
+          <ion-col>
+                <div class="ms-1 mb-1 mt-1 d-flex justify-content-start">
+                  <ion-icon (click)="like_imagen(item._id)" name="heart" color="danger" *ngIf="likes.indexOf(item._id) >= 0" ></ion-icon>
+                  <ion-icon (click)="like_imagen(item._id)" class="text-light"  name="heart-outline" *ngIf="likes.indexOf(item._id)< 0" ></ion-icon>                 
+                  <ion-icon class="text-light ms-3"   [routerLink]="['/fotos',item._id]" name="chatbubble-outline"></ion-icon>
+                
+                </div>
+                <div *ngIf="item.likes != 0" class="text-light fw-bold ms-2">
+                  {{item.likes}} Me gusta 
+                </div>
+                <div class="ms-2">
+                 <a class="text-light fw-bold" style="text-decoration: none;">{{item.user.username}}</a> <ion-text class="text-light ms-1">{{item.descripcion}}</ion-text>
+                </div>
+                <div *ngIf="item.comentarios != 0" class="ms-2">
+                  
+                  <a (click)="go_to_comments(item._id)" style="text-decoration: none;color: #999999;" >Ver los {{item.comentarios}} comentarios</a>
+                </div>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+     </div> 
+  
+  </ng-container>
+
+
+
+
+</ion-content>
+
+
+

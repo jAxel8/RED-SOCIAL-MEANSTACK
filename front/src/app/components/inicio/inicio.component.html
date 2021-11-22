@@ -1,0 +1,64 @@
+<div class="container mt-3">
+
+    <div class="d-flex justify-content-between">
+
+        
+    </div>
+    
+
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-center mt-5" *ngIf="load_data" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div> 
+    </div>
+
+
+
+
+
+    <div class="row g-3 mt-3">
+        <ng-container *ngIf="fotos.length >= 1">
+            
+            <h1>Fotos</h1>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4" *ngFor="let item of fotos">
+
+                <div  class="card">
+
+                    <div style="cursor: pointer;" [routerLink]="['/fotos',item._id]" class="bg-image hover-overlay">
+                        <img style="cursor: pointer;object-fit:contain;background-color: black;" [routerLink]="['/fotos',item._id]"   width="100%" height="250" src="{{item.imagen}}" class="card-img-top" alt="">
+                        <div class="mask"style="background-color: rgba(8, 7, 7, 0.5)">
+                            <div  class="container">
+                            
+                                <div class="mt-5 d-flex justify-content-center">
+                                    <h3 style="color: white;"><i class="bi bi-heart-fill"><span> {{item.likes}}</span></i></h3>
+                            
+                                    <h3 style="color: white;"><i class="fas fa-comments ms-4"></i><span> {{item.comentarios}} </span></h3>
+                                    <h3 style="color: white;"><i class="bi bi-eye-fill ms-4"><span> {{item.views}}</span></i></h3>
+                                </div>
+
+                            </div>
+                        </div>
+                      </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-center">
+                            <h4 class="text-dark"><i class="bi bi-heart-fill "></i> {{item.likes}} </h4>                       
+                            <h4 class="ms-5 text-dark"> <i class="fas fa-comments"></i> {{item.comentarios}} </h4>
+                            <h4 class="text-dark">  <i class="bi bi-eye-fill ms-5"></i> {{item.views}} </h4>
+                        </div>
+                    </div>
+                
+                </div>
+      
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="fotos.length == 0 && !load_data ">
+            <h1>NO HAY FOTOS SUBIDAS</h1>
+        </ng-container>
+      </div>
+      
+
+      
+
+
+</div>

@@ -1,0 +1,172 @@
+<div>
+    <div class="d-flex justify-content-center align-items-center" >
+        <div class="span12" >
+            <div class="mt-5"> 
+                <img class="img-fluid" src="{{user.profileImg}}" >
+    
+                <div class="text-center">
+                    <h4 class="name mt-3"> {{user.name + ' ' + user.surname}}   </h4>
+                    <p class="nick"> {{'' + user.username}} </p>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mb-3" *ngIf="identity._id != userid">
+
+        <button class="btn btn-primary" *ngIf="followyou" >Te sigue</button> 
+        &nbsp;
+        <button class="btn btn-dark" *ngIf="!following" (click)="seguir_usuario()" >SEGUIR</button>
+        <button class="btn btn-danger"  *ngIf="following" (click)="seguir_usuario()" >DEJAR DE SEGUIR</button>
+    </div>
+    
+    <div class="d-flex justify-content-center align-items-center">
+        <h2  class="fs-6 text-center">{{fotos.length}} Publicaciones     </h2>
+        <hr>
+        <h2  class="fs-6 text-center ps-2" data-bs-toggle="modal" data-bs-target='#seguidoresModal'  style="cursor: pointer;"> &nbsp; {{seguidores.length}} Seguidores </h2 >
+
+        <h2 class="fs-6  text-center ps-2" data-bs-toggle="modal" data-bs-target='#siguiendoModal'  style="cursor: pointer;">&nbsp;{{siguiendo.length}} Seguidos</h2>          
+    </div>
+
+
+
+
+</div>
+
+
+
+<div class="mt-5 container">
+
+    <div class="row g-3 mt-3">
+        <ng-container *ngIf="fotos.length >= 1">
+            
+
+          <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4" *ngFor="let item of fotos">
+
+                <div  class="card">
+
+                    <div style="cursor: pointer;" [routerLink]="['/fotos',item._id]" class="bg-image hover-overlay">
+                        <img style="cursor: pointer;" [routerLink]="['/fotos',item._id]"   width="100%" height="250" src="{{item.imagen}}" class="card-img-top" alt="">
+                        <div class="mask"style="background-color: rgba(8, 7, 7, 0.5)">
+                            <div  class="container">
+                            
+                                <div class="mt-5 d-flex justify-content-center">
+                                    <h3 style="color: white;"><i class="bi bi-heart-fill"><span> {{item.likes}}</span></i></h3>
+                                    <h3 style="color: white;"><i class="fas fa-comments ms-4"></i><span> {{item.comentarios}} </span></h3>
+                                    <h3 style="color: white;"><i class="bi bi-eye-fill ms-4"><span> {{item.views}}</span></i></h3>
+                                </div>
+
+                            </div>
+                        </div>
+                      </div>
+                    
+                    <div class="card-footer" *ngIf="identity._id == userid">
+                       
+                            <button type="button" (click)='eliminar_foto(item._id)' class="p-1 bd-highlight btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+
+                        
+                        
+
+                    </div>
+                </div>
+      
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="fotos.length == 0">
+            <h1>NO HAY FOTOS SUBIDAS</h1>
+        </ng-container>
+      </div>
+
+     
+
+
+</div>
+
+
+
+<!-- MODAL SEGUIDORES -->
+<div
+  class="modal fade"
+  id="seguidoresModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-scrollable" style="max-height: 250px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Seguidores de {{user.name}} {{user.surname}} </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+            <div class="row g-3">
+                <ng-container *ngIf="seguidores.length !== 0" >
+                    <div class="text-center" *ngFor="let item of seguidores">
+                        <div class="d-flex flex-start align-items-center">
+                         <img width="60" height="60" class="rounded-circle shadow-1-strong me-3" src="{{item.user.profileImg}}" alt="">
+                         <h5 class="fw-bold text-dark mb-1"> <a class="text-dark" data-bs-target="#seguidoresModal" data-bs-dismiss="modal" [routerLink]="['/perfil',item.user._id]" routerLinkActive="router-link-active" >{{item.user.name}} {{item.user.surname}}</a></h5>
+                        </div>
+                        
+                     </div>
+                </ng-container>
+                <ng-container *ngIf="seguidores.length == 0">
+                    <h4>Este usuario no tiene seguidores.</h4>
+                </ng-container>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- MODAL SIGUIENDO -->
+<div
+  class="modal fade"
+  id="siguiendoModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-scrollable" style="max-height: 250px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">{{user.name}} {{user.surname}} sigue a :</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+            <div class="row g-3">
+                <ng-container *ngIf="siguiendo.length !== 0" >
+                    <div class="text-center" *ngFor="let item of siguiendo">
+                        <div class="d-flex flex-start align-items-center">
+                         <img width="60" height="60" class="rounded-circle shadow-1-strong me-3" src="{{item.followed.profileImg}}" alt="">
+                         <h5 class="fw-bold text-dark mb-1"> <a class="text-dark" data-bs-target="#siguiendoModal" data-bs-dismiss="modal" [routerLink]="['/perfil',item.followed._id]" routerLinkActive="router-link-active" >{{item.followed.name}} {{item.followed.surname}}</a></h5>
+                        </div>
+                     </div>
+                </ng-container>
+                <ng-container *ngIf="siguiendo.length == 0">
+                    <h4>Este usuario aún no sigue a nadie.</h4>
+                </ng-container>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

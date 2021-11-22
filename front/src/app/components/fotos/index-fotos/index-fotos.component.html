@@ -1,0 +1,115 @@
+<div class="container mt-3">
+
+    <div class="d-flex justify-content-between">
+        <h2>FOTOS</h2>
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Nueva foto</button>
+    </div>
+    
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Nueva foto.</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form #fotoForm="ngForm" (ngSubmit)="subir_foto(fotoForm)" >
+            <div class="mb-3">
+                <label for="recipient-name">Titulo:</label>
+                <input name="nombre" [(ngModel)]="nombre" required type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+                <label for="description-text">Descripción:</label>
+                <textarea required name="descripcion" [(ngModel)]="descripcion" class="form-control" id="description-text"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="">Imagen:</label>
+                <img class="img-fluid" [src]="imagePreview" style="cursor: pointer;" (click)="uploadImage.click()" alt="subir-imagen">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="limpiarForm()"  data-bs-dismiss="modal" #closeBtn>Cerrar</button>
+                <button *ngIf="!load_response" type="submit" class="btn btn-dark"  >Subir foto.</button>
+                <button *ngIf="load_response" disabled class="btn btn-dark"  >Subiendo...</button>
+            </div>
+            </form>
+        </div>
+        
+        </div>
+    </div>
+    </div>
+    <input type="file" #uploadImage style="display: none;" (change)="subirImagen($event.target.files[0])" />
+
+
+
+
+    <div class="row g-3 mt-3">
+        <ng-container *ngIf="fotos.length >= 1">
+            
+
+          <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4" *ngFor="let item of fotos">
+
+                <div  class="card">
+
+                    <div style="cursor: pointer;" [routerLink]="['/fotos',item._id]" class="bg-image hover-overlay">
+                        <img style="cursor: pointer;" [routerLink]="['/fotos',item._id]"   width="100%" height="250" src="{{item.imagen}}" class="card-img-top" alt="">
+                        <div class="mask"style="background-color: rgba(8, 7, 7, 0.5)">
+                            <div  class="container">
+                            
+                                <div class="mt-5 d-flex justify-content-center">
+                                    <h3 style="color: white;"><i class="bi bi-heart-fill"><span> {{item.likes}}</span></i></h3>
+                                    <h3 style="color: white;"><i class="fas fa-comments ms-4"></i><span> {{item.comentarios}} </span></h3>
+                                    <h3 style="color: white;"><i class="bi bi-eye-fill ms-4"><span> {{item.views}}</span></i></h3>
+                                </div>
+
+                            </div>
+                        </div>
+                      </div>
+                    
+                    <div class="card-footer">
+                       
+                            <button data-bs-toggle="modal" [attr.data-bs-target]="'#delete-'+item._id" class="p-1 bd-highlight btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+
+                            <!-- MODAL PARA CONFIRMAR LA ELIMINACION DE LA FOTO -->
+                            <div class="modal fade" id="delete-{{item._id}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="deleteModalLabel">Eliminar, {{item.nombre}} </h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      Quieres eliminar esta foto?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-dark" data-bs-dismiss="modal" #cancelBtn>Cancelar</button>
+                                      <button type="button" type="submit" data-bs-dismiss="modal" *ngIf="!load_response" class="btn btn-danger" (click)="eliminar_foto(item._id)" >Eliminar</button>
+
+                                        <div>
+                                            <button *ngIf="load_response" type="button" class="btn btn-danger" disabled>Eliminando... </button>
+                                        </div>
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        
+
+                    </div>
+                </div>
+      
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="fotos.length == 0">
+            <h1>NO HAY FOTOS SUBIDAS</h1>
+        </ng-container>
+      </div>
+      
+
+
+      
+
+
+</div>

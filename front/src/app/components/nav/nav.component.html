@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark" *ngIf="identity">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/inicio']" routerLinkActive="router-link-active" >SOCIALNET</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <form class="d-flex ms-auto">
+        <div class="input-group">
+          <input  [(ngModel)]="termino" name="termino" type="text" class="form-control" placeholder="Buscar..." aria-label="Recipient's username"
+            aria-describedby="button-addon2" />
+          <button class="btn btn-danger"  (click)="buscar()" type="submit" id="button-addon2" data-mdb-ripple-color="dark">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
+      <br>
+      <ul class="navbar-nav ms-auto text-center" *ngIf="identity">
+        <li>
+            <img class="img-fluid" src="{{identity.profileImg}}" alt="">
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" style="color: white;" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{identity.name}} {{identity.surname}}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li><a class="dropdown-item" [routerLink]="['/perfil',identity._id]" routerLinkActive="router-link-active"  >Mi perfil</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/fotos']" routerLinkActive="router-link-active"   style="cursor: pointer;">Mis Fotos</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/configuracion',identity._id]"   style="cursor: pointer;">Configuración</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;" (click)="cerrar_sesion()" >Cerrar sesión</a></li>
+          </ul>
+        </li>
+
+      
+      </ul>
+      
+    </div>
+  </div>
+</nav>
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark" *ngIf="!identity">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/inicio']" routerLinkActive="router-link-active" >SOCIALNET</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0" *ngIf="!identity">
+        <li class="nav-item">
+          <a [routerLink]="['/login']" routerLinkActive="active" class="nav-link"> Iniciar sesiòn</a>
+        </li>
+
+        <li class="nav-item">
+          <a [routerLink]="['/registro']" class="nav-link" routerLinkActive="active" >Registrarse</a>
+        </li>
+      </ul>
+      
+    </div>
+  </div>
+</nav>

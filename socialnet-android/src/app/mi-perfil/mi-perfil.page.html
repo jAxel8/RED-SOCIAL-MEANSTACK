@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button class="text-light" (click)="cerrar_sesion()" >
+        <ion-icon  name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-text class="ms-3 text-light fw-bold">{{identity.username}}</ion-text>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <div class="mt-5">
+    <ion-avatar class="image-center mt-2" style="min-height: 150px; min-width: 150px;">
+      <img src="{{identity.profileImg}}">
+    </ion-avatar>
+  
+    <div class="ion-text-center">
+      <h4 class="name mt-3 text-light "> {{identity.name + ' ' + identity.surname}}   </h4>
+      <p class="nick text-light"> {{'' + identity.username}} </p>
+    </div>
+
+
+  
+    <div class="ion-text-center mb-3">
+  
+      <ion-button color="tertiary" [routerLink]="['/tabs/mi-perfil/editprofile']" >Editar perfil</ion-button>
+    </div>
+  
+    <div class="d-flex justify-content-center align-items-center">
+      <h2  class="fs-6 text-center text-light" [routerLink]="['/fotos']" routerLinkActive="router-link-active"  >{{fotos.length}} Publicaciones     </h2>
+      <hr>
+      <h2  class="fs-6 text-center ps-2 text-light " style="cursor: pointer;"> &nbsp; {{seguidores.length}} Seguidores </h2 >
+  
+      <h2 class="fs-6  text-center ps-2 text-light "  style="cursor: pointer;">&nbsp;{{siguiendo.length}} Seguidos</h2>          
+    </div>
+  
+  </div>
+   
+
+
+
+
+
+</ion-content>
+
+
+

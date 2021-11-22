@@ -1,0 +1,19 @@
+.img-fluid {
+
+    vertical-align: middle;
+    border-radius: 120px;
+    border: none;
+    width: 210px;
+    height: 210px;
+    object-fit: cover;
+}
+
+.img-fluid2 {
+
+    width: 100px;
+    height: 100px;
+    vertical-align: middle;
+    border-radius: 120px;
+    border: none;
+    object-fit: cover;
+}

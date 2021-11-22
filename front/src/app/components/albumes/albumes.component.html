@@ -1,0 +1,84 @@
+<div class="container mt-3">
+
+  <div class="d-flex justify-content-between">
+    <h2>Albumes</h2>
+    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Crear album</button>
+  </div>
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nuevo album</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #albumForm="ngForm" (ngSubmit)="crear_album(albumForm)" >
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Nombre del album:</label>
+              <input [(ngModel)]="album.nombre" name="nombre" required type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Descripción:</label>
+              <textarea [(ngModel)]="album.description" name="description" required  class="form-control" id="message-text"></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Crear album</button>
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+<div class="row g-3 mt-5">
+  <ng-container *ngIf="albums.length >= 1">
+
+    <div class="col-12 col-sm-4 col-lg-4" *ngFor="let item of albums">
+      <div class="card">
+        <h1 class=" text-center card-header"> {{item.nombre}} </h1>
+        <div class="card-body">
+          
+          <p class="card-text">
+              {{item.description}}
+          </p>
+        </div>
+        <div class="card-footer text-muted">
+          
+          <button data-bs-toggle="modal" [attr.data-bs-target]="'#delete-'+item._id" class="p-1 bd-highlight btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+          <div class="modal fade" id="delete-{{item._id}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteModalLabel">Eliminar, {{item.nombre}} </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Quieres eliminar este album?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-dark" data-bs-dismiss="modal" #cancelBtn>Cancelar</button>
+                  <button data-bs-dismiss="modal" type="button" type="submit"  class="btn btn-danger" (click)="eliminar_album(item._id)" >Eliminar</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>
+
+
+
+
+  </ng-container>
+</div>
+
+
+</div>
